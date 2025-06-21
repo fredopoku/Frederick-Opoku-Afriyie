@@ -1,0 +1,1871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frederick Opoku Afriyie - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0a0a0f;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* Hide custom cursor on touch devices */
+        @media (hover: none) and (pointer: coarse) {
+            body {
+                cursor: auto;
+            }
+            .custom-cursor {
+                display: none;
+            }
+        }
+
+        /* Custom Cursor */
+        .custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(45deg, #6366f1, #8b5cf6);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            mix-blend-mode: difference;
+        }
+
+        .custom-cursor.hover {
+            transform: scale(2);
+            background: linear-gradient(45deg, #ec4899, #f59e0b);
+        }
+
+        /* Animated background with moving shapes */
+        .animated-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .floating-shape {
+            position: absolute;
+            background: linear-gradient(45deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+            border-radius: 50%;
+            animation: float-complex 20s ease-in-out infinite;
+        }
+
+        .floating-shape:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: -10%;
+            animation-delay: 0s;
+        }
+
+        .floating-shape:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            top: 60%;
+            right: -5%;
+            animation-delay: 5s;
+        }
+
+        .floating-shape:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            bottom: 20%;
+            left: 50%;
+            animation-delay: 10s;
+        }
+
+        @keyframes float-complex {
+            0%, 100% { 
+                transform: translateY(0px) translateX(0px) rotate(0deg);
+                opacity: 0.3;
+            }
+            25% { 
+                transform: translateY(-100px) translateX(100px) rotate(90deg);
+                opacity: 0.6;
+            }
+            50% { 
+                transform: translateY(-50px) translateX(-100px) rotate(180deg);
+                opacity: 0.4;
+            }
+            75% { 
+                transform: translateY(100px) translateX(50px) rotate(270deg);
+                opacity: 0.7;
+            }
+        }
+
+        /* Navigation with glassmorphism */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(10, 10, 15, 0.95);
+            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.2);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: logo-glow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes logo-glow {
+            from { filter: drop-shadow(0 0 5px rgba(99, 102, 241, 0.5)); }
+            to { filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.8)); }
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 1rem;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+            border-radius: 8px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-links a:hover::before {
+            opacity: 1;
+        }
+
+        .nav-links a:hover {
+            color: #8b5cf6;
+            transform: translateY(-2px);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .hamburger {
+            width: 25px;
+            height: 3px;
+            background: linear-gradient(45deg, #6366f1, #8b5cf6);
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        .mobile-menu-toggle.active .hamburger:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .mobile-menu-toggle.active .hamburger:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active .hamburger:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(10, 10, 15, 0.98);
+            backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            z-index: 999;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        .mobile-menu a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 2rem;
+            font-weight: 600;
+            margin: 1rem 0;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .mobile-menu a:hover {
+            color: #8b5cf6;
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        /* Hero Section with enhanced animations */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            background: radial-gradient(ellipse at center, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+        }
+
+        .hero-content {
+            max-width: 900px;
+            padding: 0 2rem;
+        }
+
+        .hero-title {
+            font-size: 4.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff 0%, #6366f1 25%, #8b5cf6 50%, #ec4899 75%, #f59e0b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: title-entrance 2s ease-out, text-shimmer 4s ease-in-out infinite;
+            letter-spacing: -2px;
+        }
+
+        @keyframes title-entrance {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes text-shimmer {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #a78bfa;
+            animation: subtitle-entrance 2s ease-out 0.3s both;
+            font-weight: 500;
+        }
+
+        @keyframes subtitle-entrance {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            color: #cbd5e1;
+            animation: description-entrance 2s ease-out 0.6s both;
+            line-height: 1.8;
+        }
+
+        @keyframes description-entrance {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: buttons-entrance 2s ease-out 0.9s both;
+        }
+
+        @keyframes buttons-entrance {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+            position: relative;
+            overflow: hidden;
+            min-height: 48px; /* Touch target size */
+            min-width: 120px;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+            color: white;
+            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.6);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(20px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Sections */
+        .section {
+            padding: 6rem 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 4rem;
+            background: linear-gradient(135deg, #ffffff, #6366f1, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6, #ec4899);
+            border-radius: 2px;
+        }
+
+        /* Enhanced About Section */
+        .about-content {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .about-text {
+            font-size: 1.2rem;
+            color: #cbd5e1;
+            line-height: 1.9;
+            margin-bottom: 2rem;
+        }
+
+        .university-highlight {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            margin-top: 2rem;
+        }
+
+        .university-text {
+            font-size: 1.1rem;
+            color: #a78bfa;
+            font-weight: 600;
+        }
+
+        /* Enhanced Skills Grid with Progress Bars */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-top: 4rem;
+        }
+
+        .skill-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.1), transparent);
+            transition: left 0.8s ease;
+        }
+
+        .skill-card:hover::before {
+            left: 100%;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-15px) rotateY(5deg);
+            box-shadow: 0 25px 50px rgba(99, 102, 241, 0.3);
+            border-color: rgba(99, 102, 241, 0.4);
+        }
+
+        .skill-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-right: 1rem;
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .skill-info {
+            flex: 1;
+        }
+
+        .skill-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+        }
+
+        .skill-level {
+            font-size: 0.9rem;
+            color: #a78bfa;
+            font-weight: 600;
+        }
+
+        .skill-description {
+            color: #cbd5e1;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .skill-progress {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+
+        .skill-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6, #ec4899);
+            border-radius: 4px;
+            width: 0%;
+            transition: width 2s ease-out;
+            position: relative;
+        }
+
+        .skill-progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: progress-shine 2s ease-in-out infinite;
+        }
+
+        @keyframes progress-shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Enhanced Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.5s ease;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            transform: translateY(-20px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(99, 102, 241, 0.3);
+        }
+
+        .project-image {
+            height: 250px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899, #f59e0b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover .project-image::before {
+            opacity: 1;
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .project-description {
+            color: #cbd5e1;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tag {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
+            color: #a78bfa;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            font-weight: 600;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .project-link {
+            color: #6366f1;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .project-link:hover {
+            color: #8b5cf6;
+            transform: translateX(5px);
+        }
+
+        /* Enhanced Contact Section */
+        .contact {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(139, 92, 246, 0.05));
+            backdrop-filter: blur(20px);
+        }
+
+        .contact-content {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .contact-description {
+            font-size: 1.3rem;
+            color: #cbd5e1;
+            margin-bottom: 3rem;
+            line-height: 1.8;
+        }
+
+        .contact-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.4s ease;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            font-size: 1.1rem;
+            min-height: 48px; /* Touch target size */
+        }
+
+        .contact-link:hover {
+            color: #6366f1;
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            color: #64748b;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        /* Loading animation */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0a0f;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(99, 102, 241, 0.3);
+            border-top: 3px solid #6366f1;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ENHANCED MOBILE RESPONSIVENESS */
+
+        /* Large tablets and small laptops (1024px and down) */
+        @media (max-width: 1024px) {
+            .hero-title {
+                font-size: 3.8rem;
+            }
+            
+            .section-title {
+                font-size: 3rem;
+            }
+            
+            .skills-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+            
+            .projects-grid {
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            }
+        }
+
+        /* Standard tablets (768px and down) */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .section {
+                padding: 4rem 0;
+            }
+
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            .hero-title {
+                font-size: 3.2rem;
+                letter-spacing: -1px;
+            }
+
+            .hero-subtitle {
+                font-size: 1.5rem;
+            }
+
+            .hero-description {
+                font-size: 1.1rem;
+                margin-bottom: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2.8rem;
+                margin-bottom: 3rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 280px;
+                padding: 1.2rem 2rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .skill-card {
+                padding: 2rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .project-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .contact-links {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+
+            .about-content {
+                padding: 2rem;
+            }
+
+            .about-text {
+                font-size: 1.1rem;
+            }
+
+            .university-text {
+                font-size: 1rem;
+            }
+
+            .contact-description {
+                font-size: 1.2rem;
+            }
+
+            /* Reduce animations on tablets */
+            .floating-shape {
+                animation-duration: 30s;
+            }
+        }
+
+        /* Small tablets and large phones (480px and down) */
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .hero-content {
+                padding: 0 1rem;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.3rem;
+                margin-bottom: 1.2rem;
+            }
+
+            .hero-description {
+                font-size: 1rem;
+                line-height: 1.6;
+                margin-bottom: 2rem;
+            }
+
+            .section {
+                padding: 3rem 0;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+                margin-bottom: 2.5rem;
+            }
+
+            .section-title::after {
+                width: 80px;
+                height: 3px;
+            }
+
+            .skill-card {
+                padding: 1.5rem;
+            }
+
+            .skill-header {
+                flex-direction: column;
+                text-align: center;
+                margin-bottom: 1rem;
+            }
+
+            .skill-icon {
+                margin: 0 0 1rem 0;
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+
+            .skill-title {
+                font-size: 1.2rem;
+            }
+
+            .skill-description {
+                font-size: 0.95rem;
+            }
+
+            .project-card {
+                margin: 0 0.5rem;
+            }
+
+            .project-image {
+                height: 200px;
+                font-size: 3rem;
+            }
+
+            .project-content {
+                padding: 1.5rem;
+            }
+
+            .project-title {
+                font-size: 1.3rem;
+            }
+
+            .project-description {
+                font-size: 0.95rem;
+            }
+
+            .project-links {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+
+            .contact-links {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .contact-link {
+                padding: 1.2rem;
+                font-size: 1rem;
+            }
+
+            .about-content {
+                padding: 1.5rem;
+                margin: 0 0.5rem;
+            }
+
+            .about-text {
+                font-size: 1rem;
+                line-height: 1.7;
+            }
+
+            .university-highlight {
+                padding: 1rem;
+            }
+
+            .university-text {
+                font-size: 0.95rem;
+            }
+
+            .contact-description {
+                font-size: 1.1rem;
+                margin-bottom: 2rem;
+            }
+
+            .mobile-menu a {
+                font-size: 1.8rem;
+                margin: 0.8rem 0;
+                padding: 0.8rem 1.5rem;
+            }
+
+            /* Disable complex animations on small screens */
+            .floating-shape {
+                display: none;
+            }
+
+            .skill-card:hover {
+                transform: translateY(-10px);
+            }
+
+            .project-card:hover {
+                transform: translateY(-10px) scale(1.01);
+            }
+        }
+
+        /* Extra small phones (360px and down) */
+        @media (max-width: 360px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .skill-card,
+            .project-card,
+            .about-content {
+                margin: 0;
+                border-radius: 15px;
+            }
+
+            .btn {
+                padding: 1rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            .nav-container {
+                padding: 0 0.5rem;
+            }
+
+            .container {
+                padding: 0 0.5rem;
+            }
+
+            .project-content {
+                padding: 1rem;
+            }
+
+            .skill-card {
+                padding: 1rem;
+            }
+
+            .about-content {
+                padding: 1rem;
+            }
+        }
+
+        /* Landscape orientation adjustments for mobile */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .hero {
+                min-height: auto;
+                padding: 2rem 0;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .hero-description {
+                font-size: 0.9rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .mobile-menu a {
+                font-size: 1.2rem;
+                margin: 0.3rem 0;
+            }
+        }
+
+        /* High DPI displays */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .section-title::after {
+                height: 2px;
+            }
+        }
+
+        /* Reduce motion for users who prefer it */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            .floating-shape {
+                display: none;
+            }
+        }
+
+        /* Focus styles for accessibility */
+        .btn:focus,
+        .contact-link:focus,
+        .project-link:focus,
+        .nav-links a:focus,
+        .mobile-menu a:focus {
+            outline: 2px solid #6366f1;
+            outline-offset: 2px;
+        }
+
+        /* Touch device optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .skill-card:hover,
+            .project-card:hover,
+            .btn:hover,
+            .contact-link:hover {
+                transform: none;
+            }
+
+            .skill-card:active,
+            .project-card:active {
+                transform: scale(0.98);
+            }
+
+            .btn:active,
+            .contact-link:active {
+                transform: scale(0.95);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading screen -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Custom cursor -->
+    <div class="custom-cursor" id="customCursor"></div>
+
+    <!-- Animated background -->
+    <div class="animated-background">
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">FA</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu-toggle" id="mobileMenuToggle">
+                <div class="hamburger"></div>
+                <div class="hamburger"></div>
+                <div class="hamburger"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1 class="hero-title">Frederick Opoku Afriyie</h1>
+            <p class="hero-subtitle">Full-Stack Developer • Digital Innovator • Entrepreneur</p>
+            <p class="hero-description">
+                Passionate about creating innovative digital solutions that bridge technology and design. 
+                Specializing in front-end development, research, database management, networking, and graphic design.
+                Transforming ideas into exceptional digital experiences.
+            </p>
+            <div class="cta-buttons">
+                <a href="#projects" class="btn btn-primary">Explore My Work</a>
+                <a href="#contact" class="btn btn-secondary">Let's Collaborate</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="container">
+            <h2 class="section-title fade-in">About Me</h2>
+            <div class="about-content fade-in">
+                <p class="about-text">
+                    I am a passionate technologist, creative problem-solver, and entrepreneur with expertise spanning the full spectrum 
+                    of digital innovation. My journey combines technical proficiency with creative vision and business acumen, enabling me to 
+                    develop solutions that are both functionally robust and aesthetically compelling. As a partner in Vision97, a dynamic 
+                    streetwear brand, I bridge the gap between technology and fashion, applying digital innovation to creative industries. 
+                    I thrive at the intersection of user experience design, emerging web technologies, and entrepreneurial ventures, 
+                    always pushing the boundaries of what's possible in both digital and physical realms.
+                </p>
+                <div class="university-highlight">
+                    <p class="university-text">
+                        📚 Currently pursuing MSc Computer Science at St Mary's University, Twickenham, London
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="section" id="skills">
+        <div class="container">
+            <h2 class="section-title fade-in">Core Expertise</h2>
+            <div class="skills-grid">
+                <div class="skill-card fade-in" data-skill="95">
+                    <div class="skill-header">
+                        <div class="skill-icon">🎨</div>
+                        <div class="skill-info">
+                            <h3 class="skill-title">Front-end Development</h3>
+                            <span class="skill-level">Expert Level</span>
+                        </div>
+                    </div>
+                    <p class="skill-description">
+                        Mastery in React, Vue.js, HTML5, CSS3, JavaScript ES6+, TypeScript, and modern frameworks. 
+                        Specialized in responsive design, performance optimization, and progressive web applications 
+                        with cutting-edge UI/UX implementations.
+                    </p>
+                    <div class="skill-progress">
+                        <div class="skill-progress-bar"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-card fade-in" data-skill="88">
+                    <div class="skill-header">
+                        <div class="skill-icon">🔬</div>
+                        <div class="skill-info">
+                            <h3 class="skill-title">Research & Analysis</h3>
+                            <span class="skill-level">Advanced Level</span>
+                        </div>
+                    </div>
+                    <p class="skill-description">
+                        Experienced in academic research methodologies, data analysis, algorithm optimization, 
+                        and scientific paper writing. Focused on HCI, web technologies, emerging digital trends, 
+                        and innovative technological solutions.
+                    </p>
+                    <div class="skill-progress">
+                        <div class="skill-progress-bar"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-card fade-in" data-skill="92">
+                    <div class="skill-header">
+                        <div class="skill-icon">🗄️</div>
+                        <div class="skill-info">
+                            <h3 class="skill-title">Database Management</h3>
+                            <span class="skill-level">Expert Level</span>
+                        </div>
+                    </div>
+                    <p class="skill-description">
+                        Proficient in SQL, NoSQL databases (MongoDB, PostgreSQL, MySQL), database design, 
+                        optimization, and data modeling. Extensive experience with cloud databases, data 
+                        warehousing, and modern data architecture patterns.
+                    </p>
+                    <div class="skill-progress">
+                        <div class="skill-progress-bar"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-card fade-in" data-skill="85">
+                    <div class="skill-header">
+                        <div class="skill-icon">🌐</div>
+                        <div class="skill-info">
+                            <h3 class="skill-title">Networking & Systems</h3>
+                            <span class="skill-level">Advanced Level</span>
+                        </div>
+                    </div>
+                    <p class="skill-description">
+                        Strong understanding of network protocols, security, cloud computing, API development, 
+                        and distributed systems. Comprehensive knowledge of TCP/IP, REST APIs, microservices 
+                        architecture, and modern DevOps practices.
+                    </p>
+                    <div class="skill-progress">
+                        <div class="skill-progress-bar"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-card fade-in" data-skill="90">
+                    <div class="skill-header">
+                        <div class="skill-icon">🎭</div>
+                        <div class="skill-info">
+                            <h3 class="skill-title">Graphic Design</h3>
+                            <span class="skill-level">Expert Level</span>
+                        </div>
+                    </div>
+                    <p class="skill-description">
+                        Creative expertise in UI/UX design, visual identity, digital illustration, and brand 
+                        development. Proficient in Adobe Creative Suite, Figma, and design thinking methodologies 
+                        with a focus on user-centered design principles.
+                    </p>
+                    <div class="skill-progress">
+                        <div class="skill-progress-bar"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-card fade-in" data-skill="87">
+                    <div class="skill-header">
+                        <div class="skill-icon">🚀</div>
+                        <div class="skill-info">
+                            <h3 class="skill-title">Innovation & Leadership</h3>
+                            <span class="skill-level">Advanced Level</span>
+                        </div>
+                    </div>
+                    <p class="skill-description">
+                        Passionate about emerging technologies, project management, collaborative development, 
+                        and mentoring. Experienced in agile methodologies, cross-functional team leadership, 
+                        and driving innovative solutions from concept to deployment.
+                    </p>
+                    <div class="skill-progress">
+                        <div class="skill-progress-bar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="section" id="projects">
+        <div class="container">
+            <h2 class="section-title fade-in">Featured Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card fade-in">
+                    <div class="project-image">👕</div>
+                    <div class="project-content">
+                        <h3 class="project-title">Vision97 - Streetwear Brand Partnership</h3>
+                        <p class="project-description">
+                            Co-founder and partner in Vision97, a cutting-edge streetwear brand that merges contemporary 
+                            fashion with digital innovation. Responsible for brand development, digital strategy, e-commerce 
+                            platform design, and leveraging technology to enhance customer experience and business operations.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">Entrepreneurship</span>
+                            <span class="tag">Brand Development</span>
+                            <span class="tag">E-commerce</span>
+                            <span class="tag">Digital Strategy</span>
+                            <span class="tag">Fashion Tech</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://shop.vision97.vision/" class="project-link">Visit Brand →</a>
+                            <a href="https://shop.vision97.vision/information.html" class="project-link">Business Story →</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card fade-in">
+                    <div class="project-image">🏪</div>
+                    <div class="project-content">
+                        <h3 class="project-title">Brew-and-Bite Cafe Financial Management System</h3>
+                        <p class="project-description">
+                            A comprehensive database-driven application for managing expenses, inventory, and sales 
+                            designed specifically for small businesses. Features automated financial tracking, inventory 
+                            management, and sales analytics with a user-friendly GUI interface.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">SQLite</span>
+                            <span class="tag">SQLAlchemy</span>
+                            <span class="tag">Tkinter</span>
+                            <span class="tag">PyTest</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">GitHub →</a>
+                            <a href="#" class="project-link">Documentation →</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card fade-in">
+                    <div class="project-image">🔬</div>
+                    <div class="project-content">
+                        <h3 class="project-title">Digital Systems in Property Management Research</h3>
+                        <p class="project-description">
+                            Ongoing research project measuring the impact of centralized digital systems on operational 
+                            efficiency in residential property management through comparative international analysis. 
+                            Contributing to academic understanding of digital transformation in real estate.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">Research</span>
+                            <span class="tag">Data Analysis</span>
+                            <span class="tag">Digital Systems</span>
+                            <span class="tag">Property Management</span>
+                            <span class="tag">Academic</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">Research Abstract →</a>
+                            <a href="#" class="project-link">Progress Update →</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card fade-in">
+                    <div class="project-image">💰</div>
+                    <div class="project-content">
+                        <h3 class="project-title">SmartSpend - Personal Finance Manager</h3>
+                        <p class="project-description">
+                            A full-stack personal finance management application that helps users track expenses, 
+                            set budgets, and achieve financial goals. Features real-time analytics, spending 
+                            categorization, and intelligent financial insights using modern web technologies.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">Python</span>
+                            <span class="tag">MongoDB</span>
+                            <span class="tag">Finance</span>
+                            <span class="tag">Analytics</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">Live Demo →</a>
+                            <a href="https://github.com/fredopoku/Smartspend-" class="project-link">GitHub →</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card fade-in">
+                    <div class="project-image">🤖</div>
+                    <div class="project-content">
+                        <h3 class="project-title">MyChatbox - AI Chatbot Interface</h3>
+                        <p class="project-description">
+                            A customizable and interactive AI chatbox implementation featuring dynamic conversation 
+                            flows, responsive design, and intelligent response handling. Demonstrates integration 
+                            of AI capabilities with intuitive user interface design.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">HTML</span>
+                            <span class="tag">Python</span>
+                            <span class="tag">AI Integration</span>
+                            <span class="tag">Interactive UI</span>
+                            <span class="tag">Chatbot</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">Demo →</a>
+                            <a href="https://github.com/fredopoku/MyChatbox" class="project-link">Source Code →</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card fade-in">
+                    <div class="project-image">🌍</div>
+                    <div class="project-content">
+                        <h3 class="project-title">Disabled Kids in Ghana Foundation Website</h3>
+                        <p class="project-description">
+                            A compassionate non-profit organization website dedicated to supporting and empowering 
+                            children with disabilities in Ghana. Features donation systems, volunteer coordination, 
+                            and impact stories showcasing the foundation's vital community work.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">HTML</span>
+                            <span class="tag">Responsive Design</span>
+                            <span class="tag">Non-Profit</span>
+                            <span class="tag">Social Impact</span>
+                            <span class="tag">Accessibility</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">Visit Site →</a>
+                            <a href="#" class="project-link">Case Study →</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card fade-in">
+                    <div class="project-image">⚔️</div>
+                    <div class="project-content">
+                        <h3 class="project-title">Knights of Eldoria - Adventure Game</h3>
+                        <p class="project-description">
+                            An immersive medieval kingdom simulation where treasure hunters navigate through 
+                            the realm, collecting treasures while avoiding knights. Demonstrates object-oriented 
+                            programming, game logic implementation, and algorithmic problem-solving skills.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">Game Development</span>
+                            <span class="tag">OOP</span>
+                            <span class="tag">Algorithm Design</span>
+                            <span class="tag">Simulation</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">Play Game →</a>
+                            <a href="https://github.com/fredopoku/Knights-of-Eldoria-" class="project-link">GitHub →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact" id="contact">
+        <div class="container">
+            <h2 class="section-title fade-in">Let's Connect</h2>
+            <div class="contact-content fade-in">
+                <p class="contact-description">
+                    Ready to collaborate on your next project? I'm always open to discussing new opportunities, 
+                    research collaborations, or simply connecting with fellow technology enthusiasts. 
+                    Let's build something extraordinary together!
+                </p>
+                <div class="contact-links">
+                    <a href="mailto:opokufred32@gmail.com" class="contact-link">
+                        📧 Email
+                    </a>
+                    <a href="https://linkedin.com/in/frederick-opoku-afriyie-ba3137335" class="contact-link">
+                        💼 LinkedIn
+                    </a>
+                    <a href="https://github.com/fredopoku" class="contact-link">
+                        💻 GitHub
+                    </a>
+                    <a href="tel:+447555824861" class="contact-link">
+                        📱 Phone
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Frederick Opoku Afriyie. Crafted with passion for innovation and excellence.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Loading screen
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.getElementById('loadingOverlay').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loadingOverlay').style.display = 'none';
+                }, 500);
+            }, 1000);
+        });
+
+        // Custom cursor (only for non-touch devices)
+        const cursor = document.getElementById('customCursor');
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+
+        // Check if device supports hover
+        if (window.matchMedia('(hover: hover)').matches) {
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            function animateCursor() {
+                cursorX += (mouseX - cursorX) * 0.1;
+                cursorY += (mouseY - cursorY) * 0.1;
+                cursor.style.left = cursorX + 'px';
+                cursor.style.top = cursorY + 'px';
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+
+            // Cursor hover effects
+            const hoverElements = document.querySelectorAll('a, button, .skill-card, .project-card');
+            hoverElements.forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+            });
+        }
+
+        // Mobile menu functionality
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuToggle.addEventListener('click', function() {
+            this.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
+
+        // Close mobile menu when clicking on links
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuToggle.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        mobileMenu.addEventListener('click', (e) => {
+            if (e.target === mobileMenu) {
+                mobileMenuToggle.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Navbar scroll effect
+        function handleNavbarScroll() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        }
+
+        // Intersection Observer for animations
+        function setupScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        
+                        // Animate skill progress bars
+                        if (entry.target.classList.contains('skill-card')) {
+                            const progressBar = entry.target.querySelector('.skill-progress-bar');
+                            const skillLevel = entry.target.getAttribute('data-skill');
+                            setTimeout(() => {
+                                progressBar.style.width = skillLevel + '%';
+                            }, 300);
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // Smooth scrolling
+        function setupSmoothScrolling() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Parallax effects (disabled on mobile for performance)
+        function handleParallax() {
+            if (window.innerWidth > 768 && window.matchMedia('(hover: hover)').matches) {
+                const scrolled = window.pageYOffset;
+                const shapes = document.querySelectorAll('.floating-shape');
+                
+                shapes.forEach((shape, index) => {
+                    const speed = 0.5 + (index * 0.2);
+                    const yPos = scrolled * speed;
+                    shape.style.transform = `translateY(${yPos}px)`;
+                });
+            }
+        }
+
+        // Enhanced hover effects (only for non-touch devices)
+        function setupEnhancedHoverEffects() {
+            if (window.matchMedia('(hover: hover)').matches) {
+                document.querySelectorAll('.skill-card, .project-card').forEach(card => {
+                    card.addEventListener('mouseenter', function(e) {
+                        const rect = this.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        
+                        this.style.transformOrigin = `${x}px ${y}px`;
+                    });
+                    
+                    card.addEventListener('mouseleave', function() {
+                        this.style.transformOrigin = 'center center';
+                    });
+                });
+            }
+        }
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', function() {
+            setupScrollAnimations();
+            setupSmoothScrolling();
+            setupEnhancedHoverEffects();
+            
+            // Event listeners
+            window.addEventListener('scroll', () => {
+                handleNavbarScroll();
+                requestTick();
+            });
+
+            // Handle orientation change
+            window.addEventListener('orientationchange', () => {
+                setTimeout(() => {
+                    // Close mobile menu on orientation change
+                    mobileMenuToggle.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                }, 100);
+            });
+        });
+
+        // Performance optimization
+        let ticking = false;
+        function requestTick() {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    handleParallax();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }
+
+        // Keyboard navigation for accessibility
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+                mobileMenuToggle.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Resize handler for responsive adjustments
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                mobileMenuToggle.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Touch gesture support for mobile
+        let touchStartY = 0;
+        let touchEndY = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartY = e.changedTouches[0].screenY;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            touchEndY = e.changedTouches[0].screenY;
+            // You can add swipe gestures here if needed
+        });
+
+        // Performance monitoring for mobile
+        if ('connection' in navigator) {
+            const connection = navigator.connection;
+            if (connection && connection.effectiveType && 
+                (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g')) {
+                // Disable heavy animations for slow connections
+                document.querySelectorAll('.floating-shape').forEach(shape => {
+                    shape.style.display = 'none';
+                });
+            }
+        }
+
+        // Easter egg: Konami code
+        let konamiCode = [];
+        const konami = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+        
+        document.addEventListener('keydown', (e) => {
+            konamiCode.push(e.keyCode);
+            if (konamiCode.length > 10) konamiCode.shift();
+            
+            if (konamiCode.join(',') === konami.join(',')) {
+                // Easter egg activated!
+                document.body.style.filter = 'hue-rotate(180deg)';
+                setTimeout(() => {
+                    document.body.style.filter = 'none';
+                }, 3000);
+                konamiCode = [];
+            }
+        });
+    </script>
+</body>
+</html>
